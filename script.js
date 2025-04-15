@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 50);
+        }, 50); //site is just one page with different sections, need to scroll to top
         });
     });
 
@@ -132,4 +132,36 @@ document.addEventListener("DOMContentLoaded", function () {
             <p><br></br></p>
         `;
     }
+
+    function getElementType(element) {
+        if (element.tagName === "IMG") return "image";
+        if (element.tagName === "SELECT") return "drop-down";
+        if (element.tagName === "P" || element.tagName === "SPAN" || element.tagName === "DIV") return "text";
+        if (element.tagName === "A") return "link";
+        if (element.tagName === "BUTTON") return "button";
+        if (element.tagName === "INPUT") return `${element.type} input`;
+        return element.tagName.toLowerCase(); // fallback
+    }
+
+    // Function to log events
+    function logEvent(type, element) {
+        const timestamp = new Date().toISOString();
+        const elementType = getElementType(element);
+        console.log(`${timestamp} , ${type} , ${elementType}`);
+    }
+
+    // Log all click events
+    document.addEventListener("click", (e) => {
+        logEvent("click", e.target);
+    });
+
+    // Log "views" for elements currently visible on load
+    const allElements = document.querySelectorAll("img, select, p, span, div, a, button, input, h1, h2, h3, h4, h5, h6");
+    allElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+        if (isVisible) {
+            logEvent("view", el);
+        }
+    });
 });
