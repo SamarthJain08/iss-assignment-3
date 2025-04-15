@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add active class to the corresponding content section
             const contentId = button.dataset.id;
             document.getElementById(contentId)?.classList.add("active");
+            
+            window.scrollTo(0, 0);
         });
     });
 
