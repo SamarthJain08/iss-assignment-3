@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const contentId = button.dataset.id;
             document.getElementById(contentId)?.classList.add("active");
             
-            window.scrollTo(0, 0);
+            setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 50);
         });
     });
 
